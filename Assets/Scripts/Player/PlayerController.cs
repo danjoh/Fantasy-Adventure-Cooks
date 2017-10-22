@@ -5,40 +5,32 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public float moveSpeed;
     public Rigidbody2D rb;
+    public bool move;
 
 	// Use this for initialization
 	void Start () {
-		
+        move = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-
-        if (Input.GetKey(KeyCode.D))
+        if (move)
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         }
-
-        if (Input.GetKeyUp(KeyCode.D))
+        else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void MovePartyRight()
     {
-        // Encounter trigger handling
-        if (collision.tag == "Encounter")
-        {
-            Debug.Log("Triggered encounter");
-        }
+        move = true;
+    }
+
+    public void StopParty()
+    {
+        move = false;
     }
 }
